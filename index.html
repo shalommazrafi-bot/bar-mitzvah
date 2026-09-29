@@ -39,25 +39,25 @@
 
         .music-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            background: #d4af37;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            background: linear-gradient(135deg, #d4af37, #aa7c11);
             color: #0b0c10;
             border: 2px solid #ffffff;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
+            width: 58px;
+            height: 58px;
+            font-size: 26px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 4px 18px rgba(212, 175, 55, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.3s;
         }
         .music-btn:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
         .content-wrap {
@@ -178,8 +178,8 @@
 
     <canvas id="glitter-canvas"></canvas>
 
-    <button class="music-btn" id="musicToggle" title="הפעל או השהה מוזיקה">🎵</button>
-    <audio id="bgMusic" src="music.mp3.mp3" loop preload="auto"></audio>
+    <button class="music-btn" id="musicToggle" aria-label="נגן מוזיקה">🎵</button>
+    <audio id="bgMusic" src="https://shalommazrafi-bot.github.io/bar-mitzvah/music.mp3.mp3" preload="auto" loop></audio>
 
     <div class="content-wrap">
         <div class="invitation-container">
@@ -235,33 +235,37 @@
     <script>
         const audio = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicToggle');
-        let isPlaying = false;
 
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                musicBtn.innerText = '🔇';
-                isPlaying = false;
-            } else {
+        function playAudio() {
+            if (audio.paused) {
                 audio.play().then(() => {
-                    musicBtn.innerText = '🎵';
-                    isPlaying = true;
-                }).catch(() => {});
+                    musicBtn.innerText = '⏸️';
+                }).catch(err => {
+                    console.log("Audio play blocked: ", err);
+                });
+            } else {
+                audio.pause();
+                musicBtn.innerText = '🎵';
             }
         }
 
-        musicBtn.addEventListener('click', toggleMusic);
+        musicBtn.addEventListener('click', playAudio);
 
-        document.body.addEventListener('click', function autoPlayOnce() {
-            if (!isPlaying) {
+        // ניסיון הפעלה אוטומטית בכל נגיעה ראשונה בדף
+        function startOnFirstTouch() {
+            if (audio.paused) {
                 audio.play().then(() => {
-                    isPlaying = true;
-                    musicBtn.innerText = '🎵';
+                    musicBtn.innerText = '⏸️';
                 }).catch(() => {});
             }
-            document.body.removeEventListener('click', autoPlayOnce);
-        }, { once: true });
+            window.removeEventListener('click', startOnFirstTouch);
+            window.removeEventListener('touchstart', startOnFirstTouch);
+        }
 
+        window.addEventListener('click', startOnFirstTouch);
+        window.addEventListener('touchstart', startOnFirstTouch);
+
+        // אנימציית נצנצים גדולים ומנצנצים
         const canvas = document.getElementById('glitter-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -342,6 +346,7 @@
         }
         drawSparkles();
 
+        // ספירה לאחור
         const targetDate = new Date("2026-10-14T19:30:00").getTime();
 
         function updateCountdown() {
