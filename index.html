@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנה לבר המצווה של עובדיה יוסף</title>
 
-  <meta property="og:title" content="הזמנה לבר המצווה עובדיה יוסף">
+    <meta property="og:title" content="הזמנה לבר המצווה עובדיה יוסף">
     <meta property="og:description" content="יום רביעי, ג' במר חשון תשפ&quot;ז (14.10.2026) | אולמי איפרן, מגדל העמק">
     <meta property="og:image" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
     <meta property="og:image:secure_url" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:type" content="website">
+
     <style>
         body {
             margin: 0;
@@ -22,14 +23,37 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* שכבת הנצנצים הרקעית */
+        #glitter-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content-wrap {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
         .invitation-container {
             max-width: 480px;
             width: 100%;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            border: 1px solid #2a2d34;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid #333842;
         }
         .invitation-container img {
             width: 100%;
@@ -41,6 +65,7 @@
             font-size: 26px;
             margin: 25px 0 5px 0;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
         h2 {
             font-size: 22px;
@@ -61,11 +86,13 @@
             margin-bottom: 25px;
         }
         .timer-box {
-            background: #16181f;
+            background: rgba(22, 24, 31, 0.85);
+            backdrop-filter: blur(4px);
             border: 1px solid #333842;
             border-radius: 8px;
             padding: 10px;
             min-width: 58px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
         .timer-val {
             font-size: 24px;
@@ -109,8 +136,8 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
-            transition: opacity 0.2s, transform 0.1s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.1s;
         }
         .action-btn:active {
             transform: scale(0.98);
@@ -127,56 +154,131 @@
 </head>
 <body>
 
-    <div class="invitation-container">
-        <img src="invitation.jpg.jpeg" alt="הזמנה לבר מצווה">
-    </div>
+    <canvas id="glitter-canvas"></canvas>
 
-    <h1>שמחת בר המצווה</h1>
-    <h2>עובדיה יוסף נ"י</h2>
+    <div class="content-wrap">
+        <div class="invitation-container">
+            <img src="invitation.jpg.jpeg" alt="הזמנה לבר מצווה">
+        </div>
 
-    <div class="countdown-title">מחכים לשמוח אתכם בעוד...</div>
+        <h1>שמחת בר המצווה</h1>
+        <h2>עובדיה יוסף נ"י</h2>
 
-    <div class="timer-container">
-        <div class="timer-box">
-            <div class="timer-val" id="seconds">00</div>
-            <div class="timer-lbl">שניות</div>
-        </div>
-        <div class="timer-box">
-            <div class="timer-val" id="minutes">00</div>
-            <div class="timer-lbl">דקות</div>
-        </div>
-        <div class="timer-box">
-            <div class="timer-val" id="hours">00</div>
-            <div class="timer-lbl">שעות</div>
-        </div>
-        <div class="timer-box">
-            <div class="timer-val" id="days">00</div>
-            <div class="timer-lbl">ימים</div>
-        </div>
-        <div class="timer-box">
-            <div class="timer-val" id="weeks">00</div>
-            <div class="timer-lbl">שבועות</div>
-        </div>
-    </div>
+        <div class="countdown-title">מחכים לשמוח אתכם בעוד...</div>
 
-    <div class="event-details">
-        <div>יום רביעי, ג' במר חשון תשפ"ז</div>
-        <div style="font-size: 15px; color: #aaa; margin-bottom: 8px;">14.10.2026</div>
-        <div>באולמי <span class="venue">"איפרן"</span> (פרידמן)</div>
-        <div>שדרות שאול עמור 22, מגדל העמק</div>
-        <div style="margin-top: 8px; font-weight: bold; color: #fff;">בשעה 19:30</div>
-    </div>
+        <div class="timer-container">
+            <div class="timer-box">
+                <div class="timer-val" id="seconds">00</div>
+                <div class="timer-lbl">שניות</div>
+            </div>
+            <div class="timer-box">
+                <div class="timer-val" id="minutes">00</div>
+                <div class="timer-lbl">דקות</div>
+            </div>
+            <div class="timer-box">
+                <div class="timer-val" id="hours">00</div>
+                <div class="timer-lbl">שעות</div>
+            </div>
+            <div class="timer-box">
+                <div class="timer-val" id="days">00</div>
+                <div class="timer-lbl">ימים</div>
+            </div>
+            <div class="timer-box">
+                <div class="timer-val" id="weeks">00</div>
+                <div class="timer-lbl">שבועות</div>
+            </div>
+        </div>
 
-    <div class="btn-container">
-        <a class="action-btn btn-calendar" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D7%91%D7%A8+%D7%9E%D7%A6%D7%95%D7%95%D7%94+%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94+%D7%99%D7%95%D7%A1%D7%A3+%D7%A0%22%D7%99&dates=20261014T163000Z/20261014T213000Z&details=%D7%A9%D7%9E%D7%97%D7%AA+%D7%91%D7%A8+%D7%94%D7%9E%D7%A6%D7%95%D7%95%D7%94+%D7%A9%D7%9C+%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94+%D7%99%D7%95%D7%A1%D7%A3+%D7%A0%22%D7%99&location=%D7%A9%D7%93%D7%A8%D7%95%D7%AA+%D7%A9%D7%90%D7%95%D7%9C+%D7%A2%D7%9E%D7%95%D7%A8+22,+%D7%9E%D7%92%D7%93%D7%9C+%D7%94%D7%A2%D7%9E%D7%A7" target="_blank">
-            📅 הוסף ליומן גוגל
-        </a>
-        <a class="action-btn btn-waze" href="https://waze.com/ul?q=%D7%A9%D7%93%D7%A8%D7%95%D7%AA%20%D7%A9%D7%90%D7%95%D7%9C%20%D7%A2%D7%9E%D7%95%D7%A8%2022%20%D7%9E%D7%92%D7%93%D7%9C%20%D7%94%D7%A2%D7%9E%D7%A7" target="_blank">
-            🚗 נווט לאולם ב־Waze
-        </a>
+        <div class="event-details">
+            <div>יום רביעי, ג' במר חשון תשפ"ז</div>
+            <div style="font-size: 15px; color: #aaa; margin-bottom: 8px;">14.10.2026</div>
+            <div>באולמי <span class="venue">"איפרן"</span> (פרידמן)</div>
+            <div>שדרות שאול עמור 22, מגדל העמק</div>
+            <div style="margin-top: 8px; font-weight: bold; color: #fff;">בשעה 19:30</div>
+        </div>
+
+        <div class="btn-container">
+            <a class="action-btn btn-calendar" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D7%91%D7%A8+%D7%9E%D7%A6%D7%95%D7%95%D7%94+%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94+%D7%99%D7%95%D7%A1%D7%A3+%D7%A0%22%D7%99&dates=20261014T163000Z/20261014T213000Z&details=%D7%A9%D7%9E%D7%97%D7%AA+%D7%91%D7%A8+%D7%94%D7%9E%D7%A6%D7%95%D7%95%D7%94+%D7%A9%D7%9C+%D7%A2%D7%95%D7%91%D7%93%D7%99%D7%94+%D7%99%D7%95%D7%A1%D7%A3+%D7%A0%22%D7%99&location=%D7%A9%D7%93%D7%A8%D7%95%D7%AA+%D7%A9%D7%90%D7%95%D7%9C+%D7%A2%D7%9E%D7%95%D7%A8+22,+%D7%9E%D7%92%D7%93%D7%9C+%D7%94%D7%A2%D7%9E%D7%A7" target="_blank">
+                📅 הוסף ליומן גוגל
+            </a>
+            <a class="action-btn btn-waze" href="https://waze.com/ul?q=%D7%A9%D7%93%D7%A8%D7%95%D7%AA%20%D7%A9%D7%90%D7%95%D7%9C%20%D7%A2%D7%9E%D7%95%D7%A8%2022%20%D7%9E%D7%92%D7%93%D7%9C%20%D7%94%D7%A2%D7%9E%D7%A7" target="_blank">
+                🚗 נווט לאולם ב־Waze
+            </a>
+        </div>
     </div>
 
     <script>
+        // אנימציית נצנצים זוהרים
+        const canvas = document.getElementById('glitter-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const sparkles = [];
+        const sparkleCount = 45;
+        const colors = ['#d4af37', '#f3e5ab', '#ffffff', '#aa7c11'];
+
+        for (let i = 0; i < sparkleCount; i++) {
+            sparkles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 3 + 1,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedY: Math.random() * 0.4 + 0.1,
+                speedX: (Math.random() - 0.5) * 0.2,
+                opacity: Math.random(),
+                fadeSpeed: Math.random() * 0.02 + 0.005
+            });
+        }
+
+        function drawSparkles() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let s of sparkles) {
+                s.y += s.speedY;
+                s.x += s.speedX;
+                s.opacity += s.fadeSpeed;
+
+                if (s.opacity > 1 || s.opacity < 0) {
+                    s.fadeSpeed = -s.fadeSpeed;
+                }
+
+                if (s.y > height) {
+                    s.y = 0;
+                    s.x = Math.random() * width;
+                }
+                if (s.x > width) s.x = 0;
+                if (s.x < 0) s.x = width;
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity));
+                ctx.fillStyle = s.color;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // צורת ניצוץ זוהר (יהלום קטן)
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y - s.size * 2);
+                ctx.lineTo(s.x + s.size * 0.5, s.y);
+                ctx.lineTo(s.x, s.y + s.size * 2);
+                ctx.lineTo(s.x - s.size * 0.5, s.y);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            requestAnimationFrame(drawSparkles);
+        }
+        drawSparkles();
+
+        // ספירה לאחור
         const targetDate = new Date("2026-10-14T19:30:00").getTime();
 
         function updateCountdown() {
