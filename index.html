@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הזמנה לבר המצווה של עובדיה יוסף</title>
+
+    <meta property="og:title" content="הזמנה לבר המצווה - עובדיה יוסף">
+    <meta property="og:description" content="יום רביעי, ג' במר-חשון תשפ&quot;ז (14.10.2026) | אולמי איפרגן, מגדל העמק">
+    <meta property="og:image" content="invitation.jpg.jpeg">
+    <meta property="og:type" content="website">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            background-color: #0b0c10;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .invitation-container {
+            max-width: 480px;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid #2a2d34;
+        }
+        .invitation-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        h1 {
+            color: #d4af37;
+            font-size: 26px;
+            margin: 25px 0 5px 0;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 22px;
+            margin: 0 0 20px 0;
+            font-weight: 500;
+            color: #eaeaea;
+        }
+        .countdown-title {
+            color: #c5a059;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            direction: ltr;
+            margin-bottom: 25px;
+        }
+        .timer-box {
+            background: #16181f;
+            border: 1px solid #333842;
+            border-radius: 8px;
+            padding: 10px;
+            min-width: 58px;
+        }
+        .timer-val {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            font-family: monospace;
+        }
+        .timer-lbl {
+            font-size: 12px;
+            color: #9aa0a6;
+            margin-top: 4px;
+        }
+        .event-details {
+            border-top: 1px solid #252830;
+            padding-top: 20px;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #dcdcdc;
+            max-width: 480px;
+            width: 100%;
+        }
+        .venue {
+            color: #d4af37;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        <img src="invitation.jpg.jpeg" alt="הזמנה לבר מצווה">
+    </div>
+
+    <h1>שמחת בר המצווה</h1>
+    <h2>עובדיה יוסף נ"י</h2>
+
+    <div class="countdown-title">מחכים לשמוח אתכם בעוד...</div>
+
+    <div class="timer-container">
+        <div class="timer-box">
+            <div class="timer-val" id="seconds">00</div>
+            <div class="timer-lbl">שניות</div>
+        </div>
+        <div class="timer-box">
+            <div class="timer-val" id="minutes">00</div>
+            <div class="timer-lbl">דקות</div>
+        </div>
+        <div class="timer-box">
+            <div class="timer-val" id="hours">00</div>
+            <div class="timer-lbl">שעות</div>
+        </div>
+        <div class="timer-box">
+            <div class="timer-val" id="days">00</div>
+            <div class="timer-lbl">ימים</div>
+        </div>
+        <div class="timer-box">
+            <div class="timer-val" id="weeks">00</div>
+            <div class="timer-lbl">שבועות</div>
+        </div>
+    </div>
+
+    <div class="event-details">
+        <div>יום רביעי, ג' במר-חשון תשפ"ז</div>
+        <div style="font-size: 15px; color: #aaa; margin-bottom: 8px;">14.10.2026</div>
+        <div>באולמי <span class="venue">"איפרגן"</span> (פרידמן)</div>
+        <div>שדרות שאול עמור 22, מגדל העמק</div>
+        <div style="margin-top: 8px; font-weight: bold; color: #fff;">בשעה 19:30</div>
+    </div>
+
+    <script>
+        const targetDate = new Date("2026-10-14T19:30:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.querySelector(".countdown-title").innerText = "קול ששון וקול שמחה! האירוע מתקיים כעת!";
+                document.querySelector(".timer-container").style.display = "none";
+                return;
+            }
+
+            const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("weeks").innerText = String(weeks).padStart(2, '0');
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
