@@ -7,8 +7,8 @@
 
     <meta property="og:title" content="הזמנה לבר המצווה עובדיה יוסף">
     <meta property="og:description" content="יום רביעי, ג' במר חשון תשפ&quot;ז (14.10.2026) | אולמי איפרן, מגדל העמק">
-    <meta property="og:image" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
-    <meta property="og:image:secure_url" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
+    <meta property="og:image" content="https://shalommazrafi-bot.github.io/bar-mitzvah/preview.jpg">
+    <meta property="og:image:secure_url" content="https://shalommazrafi-bot.github.io/bar-mitzvah/preview.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:type" content="website">
 
@@ -16,7 +16,7 @@
         body {
             margin: 0;
             padding: 25px 12px;
-            background-color: #0b0c10;
+            background-color: #08090c;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -27,7 +27,6 @@
             position: relative;
         }
 
-        /* שכבת הנצנצים הרקעית */
         #glitter-canvas {
             position: fixed;
             top: 0;
@@ -36,6 +35,29 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            background: #d4af37;
+            color: #0b0c10;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .music-btn:active {
+            transform: scale(0.9);
         }
 
         .content-wrap {
@@ -52,7 +74,7 @@
             width: 100%;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.85);
             border: 1px solid #333842;
         }
         .invitation-container img {
@@ -65,7 +87,7 @@
             font-size: 26px;
             margin: 25px 0 5px 0;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
         }
         h2 {
             font-size: 22px;
@@ -125,7 +147,7 @@
             gap: 14px;
             max-width: 380px;
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         .action-btn {
             display: flex;
@@ -155,6 +177,10 @@
 <body>
 
     <canvas id="glitter-canvas"></canvas>
+
+    <!-- כפתור מוזיקה עגול וצף -->
+    <button class="music-btn" id="musicToggle" title="הפעל / השהה מוזיקה">🎵</button>
+    <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
 
     <div class="content-wrap">
         <div class="invitation-container">
@@ -208,7 +234,38 @@
     </div>
 
     <script>
-        // אנימציית נצנצים זוהרים
+        // ניהול מוזיקה ברקע
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerText = '🔇';
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicBtn.innerText = '🎵';
+                    isPlaying = true;
+                }).catch(() => {});
+            }
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+
+        // הפעלה בנגיעה ראשונה בכל מקום במסך
+        document.body.addEventListener('click', function autoPlayOnce() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.innerText = '🎵';
+                }).catch(() => {});
+            }
+            document.body.removeEventListener('click', autoPlayOnce);
+        }, { once: true });
+
+        // אנימציית נצנצים גדולים ומנצנצים
         const canvas = document.getElementById('glitter-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -220,19 +277,19 @@
         });
 
         const sparkles = [];
-        const sparkleCount = 45;
-        const colors = ['#d4af37', '#f3e5ab', '#ffffff', '#aa7c11'];
+        const sparkleCount = 65;
+        const colors = ['#ffd700', '#fff4b8', '#ffffff', '#e6b800', '#d4af37'];
 
         for (let i = 0; i < sparkleCount; i++) {
             sparkles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                size: Math.random() * 3 + 1,
+                size: Math.random() * 5 + 2.5, // נצנצים גדולים ובולטים
                 color: colors[Math.floor(Math.random() * colors.length)],
-                speedY: Math.random() * 0.4 + 0.1,
-                speedX: (Math.random() - 0.5) * 0.2,
+                speedY: Math.random() * 0.45 + 0.15,
+                speedX: (Math.random() - 0.5) * 0.3,
                 opacity: Math.random(),
-                fadeSpeed: Math.random() * 0.02 + 0.005
+                fadeSpeed: Math.random() * 0.02 + 0.008
             });
         }
 
@@ -258,17 +315,30 @@
                 ctx.save();
                 ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity));
                 ctx.fillStyle = s.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = s.color;
+
+                // ציור כוכב / נצנוץ בעל 4 קצוות גדול וזוהר
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.moveTo(s.x, s.y - s.size * 2.2);
+                ctx.lineTo(s.x + s.size * 0.6, s.y);
+                ctx.lineTo(s.x, s.y + s.size * 2.2);
+                ctx.lineTo(s.x - s.size * 0.6, s.y);
+                ctx.closePath();
                 ctx.fill();
 
-                // צורת ניצוץ זוהר (יהלום קטן)
                 ctx.beginPath();
-                ctx.moveTo(s.x, s.y - s.size * 2);
-                ctx.lineTo(s.x + s.size * 0.5, s.y);
-                ctx.lineTo(s.x, s.y + s.size * 2);
-                ctx.lineTo(s.x - s.size * 0.5, s.y);
+                ctx.moveTo(s.x - s.size * 2.2, s.y);
+                ctx.lineTo(s.x, s.y + s.size * 0.6);
+                ctx.lineTo(s.x + s.size * 2.2, s.y);
+                ctx.lineTo(s.x, s.y - s.size * 0.6);
                 ctx.closePath();
+                ctx.fill();
+
+                // נקודת מרכז בוהקת
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size * 0.4, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
                 ctx.fill();
 
                 ctx.restore();
@@ -293,8 +363,8 @@
 
             const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
             const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const hours = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const minutes = Math.floor((diff % (1000 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
             document.getElementById("weeks").innerText = String(weeks).padStart(2, '0');
