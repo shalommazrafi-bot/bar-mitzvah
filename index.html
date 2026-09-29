@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הזמנה לבר המצוה של עובדיה יוסף</title>
+    <title>הזמנה לבר המצווה של עובדיה יוסף</title>
 
-    <meta property="og:title" content="הזמנה לבר המצוה עובדיה יוסף">
+    <meta property="og:title" content="הזמנה לבר המצווה עובדיה יוסף">
     <meta property="og:description" content="יום רביעי, ג' במר חשון תשפ&quot;ז (14.10.2026) | אולמי איפרן, מגדל העמק">
-    <meta property="og:image" content="https://shalommazrafi-bot.github.io/bar-mitzvah/preview.jpg">
-    <meta property="og:image:secure_url" content="https://shalommazrafi-bot.github.io/bar-mitzvah/preview.jpg">
+    <meta property="og:image" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
+    <meta property="og:image:secure_url" content="https://shalommazrafi-bot.github.io/bar-mitzvah/invitation.jpg.jpeg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:type" content="website">
 
@@ -178,16 +178,15 @@
 
     <canvas id="glitter-canvas"></canvas>
 
-    <!-- כפתור מוזיקה עגול וצף -->
-    <button class="music-btn" id="musicToggle" title="הפעל / השהה מוזיקה">🎵</button>
-    <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+    <button class="music-btn" id="musicToggle" title="הפעל או השהה מוזיקה">🎵</button>
+    <audio id="bgMusic" src="music.mp3.mp3" loop preload="auto"></audio>
 
     <div class="content-wrap">
         <div class="invitation-container">
             <img src="invitation.jpg.jpeg" alt="הזמנה לבר מצווה">
         </div>
 
-        <h1>שמחת בר המצוה</h1>
+        <h1>שמחת בר המצווה</h1>
         <h2>עובדיה יוסף נ"י</h2>
 
         <div class="countdown-title">מחכים לשמוח אתכם בעוד...</div>
@@ -234,7 +233,6 @@
     </div>
 
     <script>
-        // ניהול מוזיקה ברקע
         const audio = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicToggle');
         let isPlaying = false;
@@ -254,7 +252,6 @@
 
         musicBtn.addEventListener('click', toggleMusic);
 
-        // הפעלה בנגיעה ראשונה בכל מקום במסך
         document.body.addEventListener('click', function autoPlayOnce() {
             if (!isPlaying) {
                 audio.play().then(() => {
@@ -265,7 +262,6 @@
             document.body.removeEventListener('click', autoPlayOnce);
         }, { once: true });
 
-        // אנימציית נצנצים גדולים ומנצנצים
         const canvas = document.getElementById('glitter-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -284,7 +280,7 @@
             sparkles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                size: Math.random() * 5 + 2.5, // נצנצים גדולים ובולטים
+                size: Math.random() * 5 + 2.5,
                 color: colors[Math.floor(Math.random() * colors.length)],
                 speedY: Math.random() * 0.45 + 0.15,
                 speedX: (Math.random() - 0.5) * 0.3,
@@ -318,7 +314,6 @@
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = s.color;
 
-                // ציור כוכב / נצנוץ בעל 4 קצוות גדול וזוהר
                 ctx.beginPath();
                 ctx.moveTo(s.x, s.y - s.size * 2.2);
                 ctx.lineTo(s.x + s.size * 0.6, s.y);
@@ -335,7 +330,6 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // נקודת מרכז בוהקת
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.size * 0.4, 0, Math.PI * 2);
                 ctx.fillStyle = '#ffffff';
@@ -348,7 +342,6 @@
         }
         drawSparkles();
 
-        // ספירה לאחור
         const targetDate = new Date("2026-10-14T19:30:00").getTime();
 
         function updateCountdown() {
